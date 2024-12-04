@@ -1,9 +1,10 @@
-
+import Tasks from "./components/Tasks";
 
 export default function Home() {
   return (
-    <div>
-      <h1>React Js Testing... </h1>
+    <div style={{ textAlign: "center" }}>
+      <h1>Day Planning </h1>
+      <Tasks></Tasks>
     </div>
   );
 }
