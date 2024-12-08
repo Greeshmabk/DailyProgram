@@ -1,12 +1,14 @@
-const Tasks = () => {
+import TaskItem from "./TaskItem";
+const Tasks = ({ tasks }) => {
   return (
     <div>
       <h2>Todo list</h2>
       <ul>
-        <ol>Task 1</ol>
-        <ol>Task 2</ol>
-        <ol>Task 3</ol>
-        <ol>Task 4</ol>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            <TaskItem taskDetails={task}></TaskItem>
+          </li>
+        ))}
       </ul>
     </div>
   );
