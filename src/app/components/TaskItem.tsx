@@ -1,12 +1,8 @@
 const TaskItem = ({ taskDetails }) => {
   return (
-    <div>
-      <h3>
-        {taskDetails.id}
-        {taskDetails.title}
-        {taskDetails.dueDate.toDateString()}
-      </h3>
-    </div>
+    <span className="py-3 text-2xl ">
+      <span className="px-2">{taskDetails.title}</span>
+    </span>
   );
 };
 
