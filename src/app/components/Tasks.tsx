@@ -3,17 +3,30 @@ import TaskItem from "./TaskItem";
 
 const Tasks = ({ tasks }) => {
   const [title, setTitle] = useState<string>("");
+  const [date, setDate] = useState<string>("");
   const [newTaskList, setNewTaskList] = useState(tasks || []);
   const handleChange = (e) => {
     setTitle(e.target.value);
   };
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+  };
+  const daysRemaining = (expDay) => {
+    const currentDay = new Date();
+    const differenceInMs = expDay.getTime() - currentDay.getTime();
+
+    const remainingDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+    return remainingDays;
+  };
   function saveTitle() {
     let tasksObject = {
       title: title,
-      dueDate: new Date("2024-12-03"),
+      dueDate: new Date(date),
+      remainingDays: daysRemaining(new Date(date)),
     };
     setNewTaskList([...newTaskList, tasksObject]);
-    setTitle("")
+    console.log(newTaskList);
+    setTitle("");
   }
   return (
     <div>
@@ -27,19 +40,21 @@ const Tasks = ({ tasks }) => {
           onChange={handleChange}
           required
         ></input>
+        <label htmlFor="date-picker">Due Date:</label>
+        <input type="date" value={date} onChange={handleDateChange} />
         <button
           type="button"
           className="rounded-none bg-sky-500 pl-4 font-bold"
-          disabled={title==""}
+          disabled={title == ""}
           onClick={saveTitle}
         >
           Save
         </button>
       </form>
       <div className="flex justify-center">
-        <ul className="list-disc list-inside text-left w-48">
+        <ul className=" p-4 list-inside text-left ">
           {newTaskList.map((task, index) => (
-            <li key={index}>
+            <li className="box-content h-32 w-64 p-4 border-4 bg-white" key={index}>
               <TaskItem taskDetails={task}></TaskItem>
             </li>
           ))}
